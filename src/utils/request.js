@@ -18,8 +18,6 @@ request.interceptors.request.use(
 // 响应式拦截器
 request.interceptors.response.use(
   (res) => {
-    console.log(res)
-
     const { data, message, code } = res.data
     if (code === 200) {
       return data

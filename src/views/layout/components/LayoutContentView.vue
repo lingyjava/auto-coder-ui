@@ -1,8 +1,14 @@
-<script setup></script>
+<script setup>
+import { RouterView } from 'vue-router';
+</script>
 
 <template>
     <div>
-        <div class="grid-content ep-bg-purple">aaa</div>
+        <el-row justify="center">
+            <el-col :span="16">
+                <RouterView />
+            </el-col>
+        </el-row>
     </div>
 </template>
 
