@@ -3,6 +3,7 @@ import { getJavaModel, getMybatisXml } from '@/apis/coder';
 import { onMounted, ref, reactive } from 'vue'
 import { useCodeStore } from '@/stores/code.js'
 import { useDbTypeStore } from '@/stores/dbType.js'
+import CodeBlockComponent from '@/components/CodeBlockComponent.vue';
 
 const dbTypeStore = useDbTypeStore()
 const codeStore = useCodeStore()
@@ -20,7 +21,7 @@ const formData = ref({
   dbType: 'MySQL',
   packageName: 'com.lingyuan',
   author: 'lingyuan',
-  lombok: true,
+  lombok: false,
   serializable: true,
 })
 
@@ -86,10 +87,10 @@ onMounted(async () => {
     <el-col :span="17">
       <el-tabs v-model="activeTabName" class="demo-tabs" @tab-click="switchTab" stretch tab-position="top">
         <el-tab-pane label="Model.java" name="java-model">
-          <highlightjs language="Java" :code="codeStore.javaModelCode" class=".highlightjs-container" />
+          <CodeBlockComponent :code="codeStore.javaModelCode" />
         </el-tab-pane>
         <el-tab-pane label="Mybatis.xml" name="mybatis-xml">
-          <highlightjs autodetect :code="codeStore.mybatisXmlCode" class=".highlightjs-container" />
+          <CodeBlockComponent :code="codeStore.mybatisXmlCode" />
         </el-tab-pane>
       </el-tabs>
     </el-col>
@@ -110,9 +111,5 @@ onMounted(async () => {
 
 .el-row:last-child {
   margin-bottom: 0;
-}
-
-.highlightjs-container {
-  min-height: 20%;
 }
 </style>
