@@ -1,5 +1,5 @@
 <script setup>
-import { getJavaModel, getMybatisXml } from '@/apis/coder';
+import { getJavaModel, getMybatisXml, getJavaMapper, getJavaService, getJavaServiceImpl } from '@/apis/coder';
 import { onMounted, ref, reactive } from 'vue'
 import { useCodeStore } from '@/stores/code.js'
 import { useDbTypeStore } from '@/stores/dbType.js'
@@ -20,7 +20,7 @@ const formData = ref({
   // ddl: '',
   dbType: 'MySQL',
   packageName: 'com.lingyuan',
-  author: 'lingyuan',
+  author: 'LingYuan',
   lombok: false,
   serializable: true,
 })
@@ -40,6 +40,9 @@ const submitForm = async () => {
     if (valid) {
       codeStore.setJavaModelCode(await getJavaModel(formData.value))
       codeStore.setMybatisXmlCode(await getMybatisXml(formData.value))
+      codeStore.setJavaMapperCode(await getJavaMapper(formData.value))
+      codeStore.setJavaServiceCode(await getJavaService(formData.value))
+      codeStore.setJavaServiceImplCode(await getJavaServiceImpl(formData.value))
     }
   })
 }
@@ -88,6 +91,15 @@ onMounted(async () => {
       <el-tabs v-model="activeTabName" class="demo-tabs" @tab-click="switchTab" stretch tab-position="top">
         <el-tab-pane label="Model.java" name="java-model">
           <CodeBlockComponent :code="codeStore.javaModelCode" />
+        </el-tab-pane>
+        <el-tab-pane label="Service.java" name="java-service">
+          <CodeBlockComponent :code="codeStore.javaServiceCode" />
+        </el-tab-pane>
+        <el-tab-pane label="ServiceImpl.java" name="java-service-impl">
+          <CodeBlockComponent :code="codeStore.javaServiceImplCode" />
+        </el-tab-pane>
+        <el-tab-pane label="Mapper.java" name="java-mapper">
+          <CodeBlockComponent :code="codeStore.javaMapperCode" />
         </el-tab-pane>
         <el-tab-pane label="Mybatis.xml" name="mybatis-xml">
           <CodeBlockComponent :code="codeStore.mybatisXmlCode" />

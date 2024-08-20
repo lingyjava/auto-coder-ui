@@ -15,3 +15,27 @@ export function getMybatisXml(data) {
     data
   })
 }
+
+export function getJavaService(data) {
+  return request({
+    url: '/java/getJavaService',
+    method: 'post',
+    data
+  })
+}
+
+export function getJavaServiceImpl(data) {
+  return request({
+    url: '/java/getJavaServiceImpl',
+    method: 'post',
+    data
+  })
+}
+
+export function getJavaMapper(data) {
+  return request({
+    url: '/java/getJavaMapper',
+    method: 'post',
+    data
+  })
+}
